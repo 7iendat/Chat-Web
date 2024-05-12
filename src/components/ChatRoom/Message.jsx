@@ -68,14 +68,14 @@ const Message = ({ displayName, photoURL, createdAt, text, isAuthor }) => {
         style={
           isAuthor
             ? {
-                background: "#3399ff",
+                background: "rgba(154,11,255,1)",
                 borderTopLeftRadius: "20px",
                 borderTopRightRadius: "20px",
                 borderBottomLeftRadius: "20px",
                 borderBottomRightRadius: "0",
               }
             : {
-                background: "#e0e0e0",
+                background: "#4c4c4c",
                 borderTopLeftRadius: "0",
                 borderTopRightRadius: "20px",
                 borderBottomLeftRadius: "20px",
@@ -86,18 +86,14 @@ const Message = ({ displayName, photoURL, createdAt, text, isAuthor }) => {
         <div>
           <Typography.Text className="author">{displayName}</Typography.Text>
           <Typography.Text
-            style={
-              isAuthor
-                ? { color: "rgb(219 219 219)", marginLeft: "10px" }
-                : { color: " #949c9d", marginLeft: "10px" }
-            }
+            style={{ color: "rgba(228,230, 235,1)", marginLeft: "10px" }}
           >
             {dateFormated(createdAt?.seconds)}
           </Typography.Text>
         </div>
         <div>
           <Typography.Text
-            style={isAuthor ? { color: "white" } : { color: "#474e4d" }}
+            style={{ color: "rgba(228,230, 235,1)", marginLeft: "3px" }}
           >
             {text}
           </Typography.Text>

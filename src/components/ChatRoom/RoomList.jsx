@@ -83,6 +83,7 @@ const RoomList = () => {
         type="primary"
         icon={<PlusCircleOutlined />}
         onClick={handleOpenModalAddRoom}
+        style={{ marginTop: "10px" }}
       >
         Add Room
       </Button>

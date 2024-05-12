@@ -21,10 +21,13 @@ const WrapperRoom = styled.div`
 `;
 
 const Room = ({ name, avatar, currentMessage, roomId }) => {
-  const { setIsSelectedRoom } = useContext(AppContext);
+  const { setIsSelectedRoom, isSelectedRoom } = useContext(AppContext);
 
   return (
-    <WrapperRoom onClick={() => setIsSelectedRoom(roomId)}>
+    <WrapperRoom
+      onClick={() => setIsSelectedRoom(roomId)}
+      style={roomId === isSelectedRoom ? { background: "#414141" } : null}
+    >
       <Avatar size="large" style={{ marginRight: "10px" }} src={avatar}>
         {avatar ? "" : name?.charAt(0)?.toUpperCase()}
       </Avatar>

@@ -10,6 +10,8 @@ const ChatRoom = () => {
         <Col
           span={6}
           style={{
+            width: "100%",
+            height: "100vh",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -17,7 +19,16 @@ const ChatRoom = () => {
         >
           <SideBar />
         </Col>
-        <Col span={18}>
+        <Col
+          span={18}
+          style={{
+            width: "100%",
+            height: "100vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           {" "}
           <ChatWindow />{" "}
         </Col>

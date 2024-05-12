@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Button } from "antd";
+import { Row, Col, Button, Avatar, Image } from "antd";
 import Title from "antd/es/typography/Title";
 import { useNavigate } from "react-router-dom";
 import firebase, { auth } from "../../firebase/config";
@@ -34,11 +34,23 @@ const Login = () => {
       style={{
         width: "100%",
         height: "100vh",
-        backgroundImage:
-          "linear-gradient(to right top, #175482, #00719e, #008fb8, #00aece, #19cedf)",
+        background: "#171717",
       }}
     >
       <Row justify={"center"} align="middle" style={{ height: "70%" }}>
+        <div
+          style={{
+            width: "110px",
+            height: "110px",
+            borderRadius: "10px",
+            backgroundImage: `url(/chatapplogo.jpg)`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+
+            marginRight: "10px",
+          }}
+        ></div>
+
         <Col span={8}>
           <Title style={{ textAlign: "center", color: "white" }} level={3}>
             Chat App

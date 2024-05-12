@@ -7,11 +7,14 @@ import { AppContext } from "../../Context/AppProvider";
 import { addDocument } from "../../services";
 import { AuthContext } from "../../Context/AuthProvider";
 import { useFireStore } from "../../hooks/useFireStore";
-import { values } from "lodash";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const WrapperChatWindow = styled.div`
+  background: #222222;
+
   width: 100%;
-  height: 100vh;
+  height: 95%;
+  margin: 0 15px 0 0;
+  border-radius: 20px;
 `;
 
 const WrapperHeader = styled.div`
@@ -21,11 +24,15 @@ const WrapperHeader = styled.div`
   padding: 11px;
   align-items: center;
   border-bottom: 1px solid #08a2b2;
-  box-shadow: 0px 5px 10px 0px #eaedee;
+  box-shadow: 0px 1px 2px 0px #eaedee;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+
   .room-name {
     margin: 0;
     font-weight: bold;
     font-size: 20px;
+    color: #e4e6eb;
   }
 
   .right-header {
@@ -36,7 +43,7 @@ const WrapperHeader = styled.div`
 `;
 const WrapperContent = styled.div`
   padding: 10px 30px;
-  height: calc(100vh - 156px);
+  height: calc(100vh - 170px);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -51,12 +58,17 @@ const WrapperMessageList = styled.div`
   }
 
   &::-webkit-scrollbar-track {
-    background-color: #e4e4e4;
+    background-color: #222222;
     border-radius: 100px;
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: #4dd0f2;
+    background: rgb(226, 39, 181);
+    background: linear-gradient(
+      180deg,
+      rgba(226, 39, 181, 0.949544783733806) 0%,
+      rgba(199, 42, 254, 1) 100%
+    );
     border-radius: 100px;
   }
 `;
@@ -66,13 +78,18 @@ const WrapperSendMessage = styled(Form)`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 10px 30px;
-  border: 1px solid #d9d9d9;
+  padding: 10px 30px 4px 30px;
 
   .input-message {
     width: 100%;
     flex: 1;
     margin: 0 20px;
+  }
+`;
+
+const StyledInput = styled(Input)`
+  &::placeholder {
+    color: #e4e6eb;
   }
 `;
 
@@ -100,15 +117,23 @@ const ChatWindow = () => {
       photoURL: user.photoURL,
       content: message,
     };
-    addDocument("messages", data);
 
+    if (data.content !== "") {
+      addDocument("messages", data);
+      form.resetFields(["message"]);
+      setMessage("");
+      return;
+    }
     form.resetFields(["message"]);
+    setMessage("");
+
+    return;
+
     // bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-    console.log("s", 1);
   }, [messages]);
 
   const handleInputChange = (e) => {
@@ -122,13 +147,37 @@ const ChatWindow = () => {
           <WrapperHeader>
             <div>
               <p className="room-name">{selectedRoom?.name}</p>
-              <span>{selectedRoom?.description}</span>
+              <span style={{ color: "#9fa2a6" }}>
+                {selectedRoom?.description}
+              </span>
             </div>
             <div className="right-header">
+              <div
+                style={{
+                  marginRight: "10px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <a href="/">
+                  <img
+                    style={{ marginRight: "10px" }}
+                    width={28}
+                    height={28}
+                    src="/phone-call.png"
+                    alt="phone"
+                  />
+                </a>
+                <a href="/">
+                  <img width={32} height={32} src="/zoom.png" alt="zoom" />
+                </a>
+              </div>
               <Button
                 type="text"
                 icon={<UserAddOutlined />}
                 onClick={() => setIsOpenInviteMember(true)}
+                style={{ color: " #e4e6eb" }}
               >
                 Invite
               </Button>
@@ -145,6 +194,16 @@ const ChatWindow = () => {
                   );
                 })}
               </Avatar.Group>
+
+              <a href="/">
+                <img
+                  width={22}
+                  height={22}
+                  src="/more.png"
+                  alt="more"
+                  style={{ marginLeft: "20px" }}
+                />
+              </a>
             </div>
           </WrapperHeader>
 
@@ -167,19 +226,30 @@ const ChatWindow = () => {
           </WrapperContent>
 
           <WrapperSendMessage form={form}>
+            <a>
+              <img
+                width={26}
+                height={26}
+                src="/gallery.png"
+                alt="more"
+                style={{ marginLeft: "20px" }}
+              />
+            </a>
             <Form.Item className="input-message" name="message">
-              <Input
+              <StyledInput
                 name="message"
                 placeholder="Enter a message..."
                 autoComplete="off"
                 onChange={handleInputChange}
                 onPressEnter={handleSubmit}
+                style={{ backgroundColor: "#3a3b3c", color: "#e4e6eb" }}
               />
             </Form.Item>
             <Button
               onClick={handleSubmit}
               type="primary"
               icon={<SendOutlined />}
+              style={{ background: "rgba(154,11,255,1)" }}
             >
               Send
             </Button>
